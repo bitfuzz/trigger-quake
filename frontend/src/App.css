@@ -1,0 +1,143 @@
+/* src/App.css */
+
+.app-container {
+  display: flex;
+  /* Arrange children side-by-side */
+  width: 100vw;
+  height: 100vh;
+}
+
+
+
+/* This is the crucial rule for the map */
+.map-container {
+  flex-grow: 1;
+  /* This tells the map to grow and fill all remaining space */
+  height: 100%;
+}
+
+
+
+.side-panel {
+  width: 400px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  flex-grow: 1;
+
+
+}
+
+
+/* When selected, only the header gets the highlight color */
+.list-item.selected .list-item-header {
+  background-color: #ddd;
+  padding: 10px;
+}
+
+.list-item-header:hover {
+  background-color: #ddd;
+}
+
+.list-item-header-selected {
+  background-color: #ddd1;
+  padding-left: 10px;
+  display: flex;
+  padding: 5px 6px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+
+
+
+.accordion-page-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.details {
+  width: 100%;
+  max-width: 48rem;
+  /* Equivalent to max-w-2xl */
+  /* margin: auto; */
+}
+
+.accordion-title {
+  font-size: 1.875rem;
+  /* Equivalent to text-3xl */
+  font-weight: 700;
+  text-align: center;
+  color: #1f2937;
+  margin-bottom: 2rem;
+}
+
+.accordion-wrapper {
+  background-color: white;
+  border-radius: 0.75rem;
+  /* Equivalent to rounded-xl */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  /* Equivalent to shadow-lg */
+}
+
+
+
+
+.list-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1.25rem;
+  text-align: left;
+  font-weight: 600;
+  color: #1f2937;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.list-item-header:focus-visible {
+  outline: 2px solid #4f46e5;
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
+
+
+.list-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.list-panel.open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+
+.details {
+  padding: 0 1.25rem 1.25rem 1.25rem;
+  color: #4b5563;
+  line-height: 1.6;
+
+}
+
+.details p{
+    border:None;
+    margin: 0;
+}
+.footer-text {
+  text-align: center;
+  color: #6b7280;
+  margin-top: 1.5rem;
+}
