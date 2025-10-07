@@ -1,0 +1,3 @@
+-*Make sure the markers in recent earthquake is giving coords to the subscription location when selected by the user (onClick)
+--subscriptionLocation component that keeps track of the location that user wants, only holds lat and long
+--

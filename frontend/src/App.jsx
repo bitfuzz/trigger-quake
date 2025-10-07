@@ -9,6 +9,7 @@ import QuakeMap from './components/QuakeMap';
 function App() {
   const [earthquakes, setEarthquakes] = useState([]);
   const [selectedId, setSelectedId] = useState(null); //why???
+  const [activeView, setActiveView] = useState('recent');
 
   useEffect(()=>{
     async function fetchQuakes(){
