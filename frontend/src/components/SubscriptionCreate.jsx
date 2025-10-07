@@ -1,4 +1,4 @@
-import { use, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 
 
@@ -7,12 +7,15 @@ export default function SubscriptionCreate() {
     const [mag, setMag] = useState(null);
     const [radius, setRadius] = useState(5);
     const [email, setEmail] = useState(null);
-    const [query, setQuery] = useState();
-    const [suggestions, setSuggestions] = useState();
+    const [query, setQuery] = useState('');
+    const [suggestions, setSuggestions] = useState([]);
 
     //code to handle the query and search bar
 
+    const checkLen = (arr) => {
+        return arr.length;
 
+    }
     //debounces any function
     const debounce = (func, delay) => {
         let timeoutId;
@@ -36,14 +39,18 @@ export default function SubscriptionCreate() {
         await fetch(url)
             .then(response => response.json())
             .then(data => {
-                setSuggestions(data || [])
+                setSuggestions(data.features || [])
             })
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
 
-
-    const debounced = useCallback(debounce(fetchSuggestion, 300), [fetchSuggestion]);
+    const formatdisplay = (place) =>{
+    }
+    const debounced = useCallback(
+        // if(query.length<0) return;
+        debounce(fetchSuggestion, 300), [fetchSuggestion]
+        );
 
 
     useEffect(() => {
@@ -60,14 +67,21 @@ export default function SubscriptionCreate() {
                     onChange={(e) => { setQuery(e.target.value) }}
                     placeholder="e.g,  Italy"
                 />
-                {suggestions.length > 0 && (
+                {}
+                {
+                suggestions.length > 0 && (
                     <ul className="suggestion-list">
-                        {suggestions.map((place) => {
-                            <li>
+                        {suggestions.map((place) => (
+                            <li
+                            key={place.properties.osm_id}
+                            onClick={null}>
+
                                 {/* //a function to display the list properly */}
-                                {place}
+                                {console.log(place)}
+                                {place.properties.name}
+                                
                             </li>
-                        })}
+                        ))}
                     </ul>
 
                 )}

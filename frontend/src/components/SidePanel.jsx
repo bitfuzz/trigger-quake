@@ -1,37 +1,44 @@
+import { useState } from "react";
 import ListItem from "./ListItem";
 import SubscriptionCreate from "./SubscriptionCreate";
 
 
+
 export default function SidePanel({ earthquakes, onSelect, selectedId }) {
+    const [currentView, setCurrentView] = useState('recent');
 
 
     return (
         <div className="side-panel">
 
 
+
+            <div className="panel-content">
+                
             <div>
                 <h2>Recent Earthquakes</h2>
             </div>
-
-            <div className="panel-content">
-                {currentView==='revent'&& (earthquakes.map(quake => (
+                {currentView==='recent'&& (earthquakes.map(quake => (
                     <ListItem
                         quake={quake}
                         key={quake.id}
                         IsSelected={quake.id == selectedId}
                         onSelect={onSelect}
-                    />)))}
+                    />)))
+                    
+                    }
 
                     {currentView==='create' && (
                         <SubscriptionCreate onCancel={()=>setActiveView('recent')}/>
                     )}
             </div>
-                    <div className="sub-create">
+
+                                        <div className="sub-create">
                         <button
                         className="sub-create-button"
-                        onClick={()=> setActiveView('create')}>
+                        onClick={()=> setCurrentView('create')}>
 
-                            
+                            Clear alert
                         </button>
                     </div>
 

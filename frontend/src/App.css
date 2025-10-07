@@ -16,6 +16,15 @@
   height: 100%;
 }
 
+.create-panel{
+  width: 400px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  flex-grow: 1;
+  
+}
 
 
 .side-panel {
@@ -140,4 +149,14 @@
   text-align: center;
   color: #6b7280;
   margin-top: 1.5rem;
+}
+
+.sub-create-button{
+  background-color: #4f46e5;
+  color:#ddd;
+  text-align: center;
+  display: inline-block;
+  padding: 10px 10px;
+  width: 150px;
+  height: 40px;
 }
