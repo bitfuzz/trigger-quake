@@ -10,6 +10,7 @@ function App() {
   const [earthquakes, setEarthquakes] = useState([]);
   const [selectedId, setSelectedId] = useState(null); //why???
   const [activeView, setActiveView] = useState('recent');
+  const [location, setlocation] = useState([]);
 
   useEffect(()=>{
     async function fetchQuakes(){
@@ -40,6 +41,7 @@ function App() {
         earthquakes={earthquakes}
         selectedId={selectedId}
         onSelect={handleSelect}
+        locationSelect={setlocation}
         
         />
     
@@ -47,6 +49,7 @@ function App() {
         earthquakes={earthquakes}
         onSelect={handleSelect}
         selectedId={selectedId}
+        fly_to={location}
 
         />
 

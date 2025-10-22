@@ -4,7 +4,7 @@ import SubscriptionCreate from "./SubscriptionCreate";
 
 
 
-export default function SidePanel({ earthquakes, onSelect, selectedId }) {
+export default function SidePanel({ earthquakes, onSelect, selectedId, locationSelect }) {
     const [currentView, setCurrentView] = useState('recent');
 
 
@@ -14,33 +14,42 @@ export default function SidePanel({ earthquakes, onSelect, selectedId }) {
 
 
             <div className="panel-content">
-                
-            <div>
-                <h2>Recent Earthquakes</h2>
-            </div>
-                {currentView==='recent'&& (earthquakes.map(quake => (
+
+                {currentView === 'recent' &&
+                    <div>
+                        <h2>Recent Earthquakes</h2>
+                    </div>
+
+
+
+                }
+                {currentView === 'recent' && (earthquakes.map(quake => (
+
+
                     <ListItem
                         quake={quake}
                         key={quake.id}
                         IsSelected={quake.id == selectedId}
                         onSelect={onSelect}
                     />)))
-                    
-                    }
 
-                    {currentView==='create' && (
-                        <SubscriptionCreate onCancel={()=>setActiveView('recent')}/>
-                    )}
+                }
+
+                {currentView === 'create' && (
+                    <SubscriptionCreate
+                        onCancel={() => setActiveView('recent')}
+                        locationSelect={locationSelect} />
+                )}
             </div>
-
-                                        <div className="sub-create">
-                        <button
+            {currentView === 'recent' && (
+                <div className="sub-create">
+                    <button
                         className="sub-create-button"
-                        onClick={()=> setCurrentView('create')}>
+                        onClick={() => setCurrentView('create')}>
 
-                            Clear alert
-                        </button>
-                    </div>
+                        Clear alert
+                    </button>
+                </div>)}
 
 
         </div>
