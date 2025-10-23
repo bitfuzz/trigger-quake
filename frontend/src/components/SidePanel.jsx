@@ -45,7 +45,8 @@ export default function SidePanel({ earthquakes, onSelect, selectedId, locationS
                 )}
             </div>
             {currentView === 'recent' && (
-                <div className="sub-create">
+                <div 
+                className="sub-create">
                     <button
                         className="sub-create-button"
                         onClick={() => setCurrentView('create')}>

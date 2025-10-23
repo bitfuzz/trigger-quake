@@ -81,6 +81,17 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
         debounced(query)
 
     }
+
+
+    const handleCancel = () => {
+        resetBar();
+        locationSelect([]);
+        magRadiusSelect(5);
+        
+        //reset all the feild, email, slider etc
+        //--TODO add a popup for concel confirmation
+        onCancel();
+    }
     useEffect(() => {
         debounced(query);
 
@@ -167,7 +178,7 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
 
                 <button
                     className="cancel"
-                    onClick={onCancel}>
+                    onClick={handleCancel}>
                     Cancel
                 </button>
             </div>
