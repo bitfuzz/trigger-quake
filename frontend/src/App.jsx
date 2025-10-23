@@ -11,6 +11,7 @@ function App() {
   const [selectedId, setSelectedId] = useState(null); //why???
   const [activeView, setActiveView] = useState('recent');
   const [location, setlocation] = useState([]);
+  const [magRadius, setMagRadius] = useState(5);
 
   useEffect(()=>{
     async function fetchQuakes(){
@@ -42,6 +43,8 @@ function App() {
         selectedId={selectedId}
         onSelect={handleSelect}
         locationSelect={setlocation}
+        magRadiusSelect={setMagRadius}
+        magRadius={magRadius}
         
         />
     
@@ -50,6 +53,7 @@ function App() {
         onSelect={handleSelect}
         selectedId={selectedId}
         fly_to={location}
+        magRadius={magRadius}
 
         />
 

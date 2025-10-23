@@ -4,7 +4,7 @@ import SubscriptionCreate from "./SubscriptionCreate";
 
 
 
-export default function SidePanel({ earthquakes, onSelect, selectedId, locationSelect }) {
+export default function SidePanel({ earthquakes, onSelect, selectedId, locationSelect, magRadiusSelect, magRadius }) {
     const [currentView, setCurrentView] = useState('recent');
 
 
@@ -37,8 +37,11 @@ export default function SidePanel({ earthquakes, onSelect, selectedId, locationS
 
                 {currentView === 'create' && (
                     <SubscriptionCreate
-                        onCancel={() => setActiveView('recent')}
-                        locationSelect={locationSelect} />
+                        onCancel={() => setCurrentView('recent')}
+                        locationSelect={locationSelect}
+                        magRadiusSelect={magRadiusSelect}
+                        magRadius={magRadius}
+                         />
                 )}
             </div>
             {currentView === 'recent' && (

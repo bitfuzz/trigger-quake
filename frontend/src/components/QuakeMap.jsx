@@ -1,13 +1,13 @@
-import { MapContainer, Marker, TileLayer } from 'react-leaflet';
+import { MapContainer, Marker, TileLayer, Circle } from 'react-leaflet';
 import MapController from './MapComponent';
 
 
 
 
 
-export default function QuakeMap({ earthquakes, onSelect, selectedId, fly_to }) {
+export default function QuakeMap({ earthquakes, onSelect, selectedId, fly_to, magRadius }) {
 
-
+  const fillBlueOptions = { fillColor: 'blue' }
 
   return (
     <MapContainer
@@ -26,10 +26,18 @@ export default function QuakeMap({ earthquakes, onSelect, selectedId, fly_to }) 
       />
 
       {fly_to && fly_to.length > 0 && (
-        <Marker
-          key={'current-temp'}
-          position={fly_to}
-        />
+        <>
+          <Marker
+            key={'current-temp'}
+            position={fly_to}
+          />
+          <Circle 
+          center={fly_to} 
+          pathOptions={fillBlueOptions} 
+          radius={magRadius*1000}
+           />
+
+        </>
       )}
 
 
@@ -42,13 +50,16 @@ export default function QuakeMap({ earthquakes, onSelect, selectedId, fly_to }) 
         [lat, lon - 360]]
         const markers = positions.map((pos, index) => (
 
+          <>
 
-          <Marker
-            key={`${quake.id}-${index}`}
-            position={pos}
-            eventHandlers={{
-              click: () => onSelect(quake.id)
-            }} />
+            <Marker
+              key={`${quake.id}-${index}`}
+              position={pos}
+              eventHandlers={{
+                click: () => onSelect(quake.id)
+              }} />
+
+          </>
         ));
 
         return markers;
@@ -57,6 +68,7 @@ export default function QuakeMap({ earthquakes, onSelect, selectedId, fly_to }) 
         selectedId={selectedId}
         earthquakes={earthquakes}
         fly_to={fly_to}
+        magRadius={magRadius}
       />
 
     </MapContainer>
