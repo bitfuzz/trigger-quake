@@ -8,6 +8,8 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
     const [query, setQuery] = useState('');
     const [suggestions, setSuggestions] = useState([]);
 
+    const [isSearchEmpty, setSearchEmpty] = useState(false);
+
 
     //code to handle the query and search bar
 
@@ -52,6 +54,8 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
 
     const resetBar = () => {
         setSuggestions([])
+        // isSearchEmpty = false;
+        // setSearchEmpty(false)
     }
 
     const debounced = useCallback(
@@ -67,6 +71,8 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
         const lat = c[1];
         const long = c[0]; //can add the zoom levels and radius for better 
         locationSelect([lat, long]);
+        // isSearchEmpty = true;
+        setSearchEmpty(true)
 
     }
 
@@ -87,7 +93,7 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
         resetBar();
         locationSelect([]);
         magRadiusSelect(5);
-        
+
         //reset all the feild, email, slider etc
         //--TODO add a popup for concel confirmation
         onCancel();
@@ -103,16 +109,16 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
                 <div className={`search-box-container`} >
                     <input
                         type="text"
-                        className={`${suggestions.length===0?'static-':''}search-bar`}
+                        className={`${suggestions.length === 0 ? 'static-' : ''}search-bar`}
                         value={query}
                         onChange={(e) => { setQuery(e.target.value) }}
                         placeholder="e.g,  Italy"
                     />
 
 
-                    <button 
-                    className={`${suggestions.length===0?'static-':''}search-button`}
-                    onClick={() => { handleSearch(query) }}>
+                    <button
+                        className={`${suggestions.length === 0 ? 'static-' : ''}search-button`}
+                        onClick={() => { handleSearch(query) }}>
                         Search
                     </button>
 
@@ -148,27 +154,49 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
                 )}
             </div>
 
-
+            <label
+                className=""
+                htmlFor="radius"
+            >
+                Alert Radius: {magRadius}
+            </label>
             <input
                 type="range"
                 className="radius"
+                id="radius"
                 min="5"
                 max="100"
+                step="0.1"
                 value={magRadius}
-                onChange={e => magRadiusSelect(e.target.value)} />
-            <div className="range-bubble">
-                {magRadius}
-            </div>
+                disabled={!isSearchEmpty}
+                onChange={e => magRadiusSelect(e.target.value)} required />
 
+
+
+            <label
+                htmlFor="magnitude">
+                Magnitude
+            </label>
             <input
-                type="number"
+                type="text"
+                inputMode="decimal"
                 className="magnitude"
-            />
-
+                id="magnitude"
+                placeholder="e.g 6.7"
+                disabled={!isSearchEmpty}
+                min={0}
+                max={10}
+                required />
+            <label
+                htmlFor="email"
+            >
+                Email
+            </label>
             <input
                 type="text"
                 className="email"
-                placeholder="john@example.com" />
+                disabled={!isSearchEmpty}
+                placeholder="john@example.com" required />
 
             <div className="footer">
                 <button className="save-alert">

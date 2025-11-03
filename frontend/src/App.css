@@ -300,7 +300,11 @@ body {
   cursor: pointer;
 }
 
-
+.create-panel label{
+  font-size: medium;
+  margin-left: 10px;
+  /* gap: 0px; */
+}
 
 .search-container{
   gap: 0px;
@@ -334,14 +338,15 @@ body {
 
 }
 .radius{
-  margin: 10px;
+  margin-left: 10px;
 }
 .magnitude {
-  margin: 10px;
+  margin-left: 10px;
 }
 
 .email {
-  margin: 10px;
+  margin-left: 10px;
+  /* gap: 2px; */
 }
 
 .footer {

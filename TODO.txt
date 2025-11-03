@@ -2,7 +2,9 @@
 
 --TODO
 
---Manitude input handling
+--Magnitude input handling
+
+--Email check/verification code
 
 --Subscription backend design
 

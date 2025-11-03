@@ -30,7 +30,7 @@ export default function MapController({ selectedId, earthquakes, fly_to, magRadi
             const long1 = fly_to[1];
 
 
-            map.flyTo([lat1, long1], ( -1.502 * Math.log(magRadius) + 15.518 ), { //when 100 -> 9, when 5 ->13.5 
+            map.flyTo([lat1, long1], ( -1.502 * Math.log(magRadius) + 15.218 ), { //when 100 -> 9, when 5 ->13.5 
                 animate: true,
                 duration: 0.4
             });
