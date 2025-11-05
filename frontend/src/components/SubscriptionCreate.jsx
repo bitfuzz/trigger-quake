@@ -1,12 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
+import { use, useCallback, useEffect, useState } from "react";
 
 export default function SubscriptionCreate({ locationSelect, onCancel, magRadiusSelect, magRadius }) {
     //states for the form
-    const [mag, setMag] = useState(0);
+    const [mag, setMag] = useState('');
     const [radius, setRadius] = useState(5);
-    const [email, setEmail] = useState(null);
+    const [email, setEmail] = useState('');
     const [query, setQuery] = useState('');
+    const [error, setError] = useState('');
     const [suggestions, setSuggestions] = useState([]);
+    const [mError, setMError] = useState('');
 
     const [isSearchEmpty, setSearchEmpty] = useState(false);
 
@@ -54,19 +56,18 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
 
     const resetBar = () => {
         setSuggestions([])
-        // isSearchEmpty = false;
-        // setSearchEmpty(false)
+
     }
 
     const debounced = useCallback(
-        // if(query.length<0) return;
+
         debounce(fetchSuggestion, 300), [fetchSuggestion]
     );
 
 
 
     const getCoordinates = (place) => {
-        console.log("This is the place:", place.geometry.coordinates);
+        // console.log("This is the place:", place.geometry.coordinates);
         const c = place.geometry.coordinates
         const lat = c[1];
         const long = c[0]; //can add the zoom levels and radius for better 
@@ -86,6 +87,44 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
     const handleSearch = (query) => {
         debounced(query)
 
+    }
+
+    const checkEmail = useCallback(
+
+        debounce((email) => {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            // console.log(email.target.value)
+            if (emailRegex.test(email.target.value)) {
+
+                setError(null)
+            } else if (email.target.value === '') {
+                setError('Email required!');
+            }
+            else {
+                setError('Enter a valid email!');
+            }
+        }, 300, [])
+    );
+
+    const handleEmail = (e) => {
+        setEmail(e.target.value)
+
+        //don't forget to debounce this little shit
+
+        checkEmail(e)
+
+    }
+
+    const handleMag = (e) => {
+        const value = e.target.value;
+        if (value >= 1 && value <= 10) {
+            setMag(value);
+            setMError('');
+        }
+        else if (value === '') {
+            setMag('')
+            setMError('Magnitude Required!');
+        }
     }
 
 
@@ -130,13 +169,14 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
                         {suggestions.map((place) => (
                             <div
                                 key={place.properties.osm_id}
+                                className="location-list"
                                 onClick={() => {
                                     resetBar();
                                     getCoordinates(place);
 
                                 }}>
                                 {/*set the input to the fullname of the place & clear the current suggestion list, get the coords of the place*/}
-                                {console.log(place)}
+                                {/* {console.log(place)} */}
                                 {/* //a function to display the list properly */}
                                 <div className="main-location">
 
@@ -184,31 +224,45 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
                 id="magnitude"
                 placeholder="e.g 6.7"
                 disabled={!isSearchEmpty}
+                onChange={handleMag}
+                value={mag}
                 min={0}
                 max={10}
                 required />
+            {mError && <label className="error-message-mag">{mError}</label>}
+
+
+
             <label
                 htmlFor="email"
             >
                 Email
             </label>
             <input
-                type="text"
+                type="email"
                 className="email"
                 disabled={!isSearchEmpty}
-                placeholder="john@example.com" required />
+                placeholder="john@example.com" required
+                value={email}
+                onChange={handleEmail} />
+            {error && <label className="error-message">{error}</label>}
 
             <div className="footer">
-                <button className="save-alert">
-                    Save Alert
-                </button>
-
 
                 <button
                     className="cancel"
                     onClick={handleCancel}>
                     Cancel
                 </button>
+
+
+                <button
+                    className="save-alert"
+                    disabled={(!isSearchEmpty) || (mError) || (error) || (!email) || (!mag)}>
+                    Save Alert
+                </button>
+
+
             </div>
 
 
