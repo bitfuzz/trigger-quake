@@ -64,11 +64,24 @@ body {
   /* flex-grow: 1; */
 }
 
+.panel-content{
+  background-color: var(--bg);
+}
+
 /* When selected, only the header gets the highlight color */
 .list-item.selected .list-item-header {
   background-color: var(--bg);
   padding: 10px;
+  
 }
+
+.list-item{
+  border-top: 2px solid var(--btn);
+}
+
+/* .list-item:last-child{
+  border: 2px solid var(--btn);
+} */
 
 .list-item-header:hover {
   background-color: #ddd;
@@ -135,9 +148,7 @@ body {
 }
 
 .list-item-header:focus-visible {
-  outline: 2px solid #4f46e5;
-  outline-offset: 2px;
-  border-radius: 0.5rem;
+  outline: none;
 }
 
 .list-panel {

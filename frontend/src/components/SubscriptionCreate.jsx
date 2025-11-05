@@ -198,7 +198,7 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
                 className=""
                 htmlFor="radius"
             >
-                Alert Radius: {magRadius}
+                Alert Radius: {magRadius+' km'} 
             </label>
             <input
                 type="range"

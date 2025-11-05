@@ -16,7 +16,8 @@ export default function SidePanel({ earthquakes, onSelect, selectedId, locationS
             <div className="panel-content">
 
                 {currentView === 'recent' &&
-                    <div>
+                    <div
+                    className="side-panel-header">
                         <h2>Recent Earthquakes</h2>
                     </div>
 
