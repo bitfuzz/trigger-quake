@@ -4,7 +4,7 @@ import SubscriptionCreate from "./SubscriptionCreate";
 
 
 
-export default function SidePanel({ earthquakes, onSelect, selectedId, locationSelect, magRadiusSelect, magRadius }) {
+export default function SidePanel({ earthquakes, onSelect, selectedId, locationSelect, location, magRadiusSelect, magRadius }) {
     const [currentView, setCurrentView] = useState('recent');
 
 
@@ -42,6 +42,7 @@ export default function SidePanel({ earthquakes, onSelect, selectedId, locationS
                         locationSelect={locationSelect}
                         magRadiusSelect={magRadiusSelect}
                         magRadius={magRadius}
+                        location={location}
                          />
                 )}
             </div>

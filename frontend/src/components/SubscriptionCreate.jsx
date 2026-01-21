@@ -1,6 +1,6 @@
 import { use, useCallback, useEffect, useState } from "react";
 
-export default function SubscriptionCreate({ locationSelect, onCancel, magRadiusSelect, magRadius }) {
+export default function SubscriptionCreate({ locationSelect, onCancel, magRadiusSelect, location, magRadius }) {
     //states for the form
     const [mag, setMag] = useState('');
     const [radius, setRadius] = useState(5);
@@ -32,7 +32,41 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
 
 
 
+    const handleSubmit = async(e)=>{
+        e.preventDefault();
+        const subscriptionData = {
+            email: email, // You can hook this to your state later
+            lat: location[0],               // Use the map's clicked location here if available
+            lon: location[1],
+            radius_km: radius,
+            min_magnitude: mag
+        }
+        try {
+            
+            const response = await fetch('http://localhost:5001/api/subscription', 
+                {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(subscriptionData),
+                    }
+            );
 
+            if(response.ok){
+                const data = await response.json();
+                console.log("Success:", data);
+                alert("Subscription Saved! Check your Database.");
+            }else{
+                console.error("Server Error");
+            }
+
+
+        } catch (error) {
+            console.log("Network Error: ", error);
+        }
+
+    };
 
 
     const fetchSuggestion = useCallback(async (searchQuery) => {
@@ -126,6 +160,11 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
             setMError('Magnitude Required!');
         }
     }
+
+    const saveData = ()=>{
+        //email, radius, mag, location
+
+    } // get the email, magnitude, radius and location and send all of that data to the internal backend api that will save that data to a table
 
 
     const handleCancel = () => {
@@ -258,7 +297,8 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
 
                 <button
                     className="save-alert"
-                    disabled={(!isSearchEmpty) || (mError) || (error) || (!email) || (!mag)}>
+                    disabled={(!isSearchEmpty) || (mError) || (error) || (!email) || (!mag)}
+                    onClick={handleSubmit}>
                     Save Alert
                 </button>
 

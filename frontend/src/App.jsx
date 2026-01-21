@@ -16,7 +16,7 @@ function App() {
   useEffect(()=>{
     async function fetchQuakes(){
       try {
-        const response = await fetch('http://localhost:8080/api/recent');
+        const response = await fetch('http://localhost:5001/api/recent');
         const data = await response.json();
         setEarthquakes(data);
       } catch (error) {
@@ -43,6 +43,7 @@ function App() {
         selectedId={selectedId}
         onSelect={handleSelect}
         locationSelect={setlocation}
+        location={location}
         magRadiusSelect={setMagRadius}
         magRadius={magRadius}
         
