@@ -2,17 +2,7 @@ import axios from 'axios';
 import { checkAndNotify } from './notificationService.js';
 import pool from '../config/db.js'
 
-/* 
-SCHEMA
-mag
-lat
-long
-depth
-place(string)
-time(timestamp)
-id(primary key)
-*/
-
+// connect the pg database
 pool.connect().then(()=> console.log("Connection Successfully!"))
 
 
@@ -20,7 +10,7 @@ const query = `INSERT INTO earthquakes(magnitude, place, id, "time", "long", "la
                 VALUES ($1, $2, $3, to_timestamp($4), $5, $6, $7, $8, $9, $10)
                 ON CONFLICT (id) DO NOTHING;`
 
-
+//dayurl is single dau, and url is hourly
 const dayurl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson";
 const url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson"; 
 
@@ -118,3 +108,15 @@ export function startPollingServices()
 
 // const dat1a = await getQuakes(dayurl);
 // console.log(dat1a.features.);
+
+
+/* 
+SCHEMA
+mag
+lat
+long
+depth
+place(string)
+time(timestamp)
+id(primary key)
+*/
