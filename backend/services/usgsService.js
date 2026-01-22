@@ -8,7 +8,8 @@ pool.connect().then(()=> console.log("Connection Successfully!"))
 
 const query = `INSERT INTO earthquakes(magnitude, place, id, "time", "long", "lat", depth, title, type, felt) 
                 VALUES ($1, $2, $3, to_timestamp($4), $5, $6, $7, $8, $9, $10)
-                ON CONFLICT (id) DO NOTHING;`
+                ON CONFLICT (id) DO NOTHING
+                RETURNING *;` //because INSERT statemnet doesn't return by default 
 
 //dayurl is single dau, and url is hourly
 const dayurl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson";
@@ -18,8 +19,8 @@ const url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.
 async function getQuakes(url)
 {
     try{
-    const response = await axios.get(url);
-    return response.data; // returns a promise (NOT A VALUE)
+        const response = await axios.get(url);
+        return response.data; // returns a promise (NOT A VALUE)
     }
     catch(error){
         console.error(`Error: ${error}`); 
@@ -29,8 +30,6 @@ async function getQuakes(url)
 
 
 async function InsertQuakes(data){
-    
-
     if (!data || !data.features) {
         console.log("Warning: No earthquake data received. Skipping insertion.");
         return; 
@@ -60,10 +59,11 @@ async function InsertQuakes(data){
     try {
         
         const result = await pool.query(query, values);
-        // console.log("Inserted values for id: ", features.id);
 
         if(result.rows.length>0){
-            console.log(`New quake at ${features.propertise.place}`);
+            console.log("Inserted values for id: ", features.id);
+            console.log(result.rows)
+            console.log(`New quake at ${features.properties.place}`);  //properties.place
             checkAndNotify(features);
         }
     } catch (error) {

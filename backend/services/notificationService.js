@@ -1,14 +1,16 @@
 import pool from '../config/db.js';
 import { sendEmailAlert } from './emailService.js';
 
+
+//checks the quake data in the pg database, if yes 
 export const checkAndNotify = async (quake) => {
     const {properties, geometry} = quake;
     const magnitude = properties.mag; 
     const place =  properties.place;
-    const quakeLat =  geometry.coordinates[0];
-    const quakeLon =  geometry.coordinates[1];
+    const quakeLat =  geometry.coordinates[1];
+    const quakeLon =  geometry.coordinates[0];
     const time  = new Date(properties.time).toLocaleDateString();
-    console.log(`Checking alerts for ${place}   (Mag:  ${magnitude}) `);
+    console.log(`Checking alerts for ${place}   (Mag:  ${magnitude}) Location (lon:${quakeLon},lat: ${quakeLat}) `);
 
     try {
         
@@ -21,7 +23,7 @@ export const checkAndNotify = async (quake) => {
                 ST_SetSRID(ST_MakePoint($2, $3), 4326)::geography, 
                 radius_km * 1000 
             )
-        `;
+        `;//IMP
         
         const result = await pool.query(query, [magnitude, quakeLon, quakeLat]);
 
@@ -31,6 +33,9 @@ export const checkAndNotify = async (quake) => {
 
             //imp 
             const emailPromises = result.rows.map(user => sendEmailAlert(user.email, {place, magnitude, time}))
+
+
+
 
             await Promise.all(emailPromises);
         }else{

@@ -3,7 +3,6 @@ import { use, useCallback, useEffect, useState } from "react";
 export default function SubscriptionCreate({ locationSelect, onCancel, magRadiusSelect, location, magRadius }) {
     //states for the form
     const [mag, setMag] = useState('');
-    const [radius, setRadius] = useState(5);
     const [email, setEmail] = useState('');
     const [query, setQuery] = useState('');
     const [error, setError] = useState('');
@@ -38,7 +37,7 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
             email: email, // You can hook this to your state later
             lat: location[0],               // Use the map's clicked location here if available
             lon: location[1],
-            radius_km: radius,
+            radius_km: magRadius,
             min_magnitude: mag
         }
         try {
