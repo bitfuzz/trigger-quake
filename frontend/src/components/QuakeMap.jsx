@@ -1,9 +1,24 @@
 import { MapContainer, Marker, TileLayer, Circle } from 'react-leaflet';
 import MapController from './MapComponent';
+import L from 'leaflet';
+import '../App.css'; // Ensure you import your CSS file here
 
+// Updated helper: Uses CSS classes instead of inline styles
+const createCustomDivIcon = (magnitudeClass) => L.divIcon({
+  className: `geo-marker ${magnitudeClass}`, // Combine base class + color class
+  html: '', // No inner HTML needed, CSS handles the shape
+  iconSize: [16, 16], // Match CSS size
+  iconAnchor: [8, 8], // Center it (half of 16)
+  popupAnchor: [0, -10]
+});
 
-
-
+// Helper to determine class based on magnitude
+const getMarkerClass = (mag) => {
+  const m = parseFloat(mag);
+  if (m >= 4.5) return 'marker-high';
+  if (m >= 2.5) return 'marker-med';
+  return 'marker-low';
+};
 
 export default function QuakeMap({ earthquakes, onSelect, selectedId, fly_to, magRadius }) {
 
@@ -19,8 +34,9 @@ export default function QuakeMap({ earthquakes, onSelect, selectedId, fly_to, ma
       worldCopyJump={true}
       style={{ height: '100%', width: '100%' }}
     >
-
-
+      {/* PRO TIP: Switch this TileLayer to a "Light" or "Positron" style 
+         to match your cream UI better than the default OSM.
+      */}
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
@@ -32,38 +48,40 @@ export default function QuakeMap({ earthquakes, onSelect, selectedId, fly_to, ma
             position={fly_to}
           />
           <Circle 
-          center={fly_to} 
-          pathOptions={fillBlueOptions} 
-          radius={magRadius*1000}
-           />
-
+            center={fly_to} 
+            pathOptions={fillBlueOptions} 
+            radius={magRadius*1000}
+          />
         </>
       )}
 
-
       {earthquakes.map(quake => {
-
         const lat = parseFloat(quake.lat);
         const lon = parseFloat(quake.long);
-        const positions = [[lat, lon],
-        [lat, lon + 360],
-        [lat, lon - 360]]
-        const markers = positions.map((pos, index) => (
+        
+        // Handle world wrapping manually (as per your original code)
+        const positions = [
+          [lat, lon],
+          [lat, lon + 360],
+          [lat, lon - 360]
+        ];
 
-          <>
+        // Determine which CSS class to use for this quake
+        const markerClass = getMarkerClass(quake.magnitude);
 
-            <Marker
-              key={`${quake.id}-${index}`}
-              position={pos}
-              eventHandlers={{
-                click: () => onSelect(quake.id)
-              }} />
-
-          </>
+        return positions.map((pos, index) => (
+          <Marker
+            key={`${quake.id}-${index}`}
+            position={pos}
+            // Pass the calculated CSS class to the icon creator
+            icon={createCustomDivIcon(markerClass)}
+            eventHandlers={{
+              click: () => onSelect(quake.id)
+            }} 
+          />
         ));
-
-        return markers;
       })}
+
       <MapController
         selectedId={selectedId}
         earthquakes={earthquakes}
@@ -72,8 +90,5 @@ export default function QuakeMap({ earthquakes, onSelect, selectedId, fly_to, ma
       />
 
     </MapContainer>
-
-
   );
-
 }

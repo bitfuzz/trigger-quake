@@ -6,15 +6,8 @@
 
 --Email check/verification code
 
---Subscription backend design
-
---Subscription panel CSS 
-
-
 --Clear Input after subscriptions is saved
 
 --replace alerts with toast methods
-
---check node emailer and make sure the email subscriptions thingy works correctly
 
 --onclik location in subscription, should use that as the location

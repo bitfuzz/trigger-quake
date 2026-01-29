@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
-dotenv.config({ path: "./.env" });
+dotenv.config({ path: "../.env" });
 console.log(process.env.QUAKE_PASSWORD);
 console.log(process.env.QUAKE_EMAIL);
 
