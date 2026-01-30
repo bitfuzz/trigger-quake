@@ -181,7 +181,7 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
     }, [query, debounced]);
     return (
         <div className="create-panel">
-            <p>Create Subscription</p>
+            <h2>Create Subscription</h2>
             <div className="search-container">
                 <div className={`search-box-container`} >
                     <input
@@ -194,7 +194,7 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
 
 
                     <button
-                        className={`${suggestions.length === 0 ? 'static-' : ''}search-button`}
+                        className={`${suggestions.length === 0 && !query ? 'static-' : ''}search-button`}
                         onClick={() => { handleSearch(query) }}>
                         Search
                     </button>

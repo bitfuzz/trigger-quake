@@ -111,6 +111,15 @@ body::before {
   letter-spacing: -0.01em;
 }
 
+
+
+
+  /* padding: 1.5rem 2rem;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  border-bottom: 1px solid var(--border); */
+
 /* List Item */
 .list-item {
   background: var(--panel-bg);
@@ -238,13 +247,30 @@ body::before {
   flex-direction: column;
 }
 
-.create-panel > p {
+.create-panel > h2 {
   padding: 1.5rem 2rem;
   margin: 0;
   font-family: var(--font-serif);
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   border-bottom: 1px solid var(--border);
 }
+
+
+.radius{
+  width: auto;
+  /* margin-left: 50px; */
+  margin: 0rem 2rem 0rem;
+  /* outline: none; */
+  /* outline: none; */
+  accent-color: var(--text-main);
+
+}
+
+.radius:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+
 
 .search-box-container {
   padding: 1.5rem 2rem 0 2rem;
@@ -266,7 +292,7 @@ body::before {
 }
 
 .static-search-bar:focus {
-  border-color: var(--text-muted);
+  border-color: var(--text-main);
 }
 
 .static-search-button {
@@ -301,7 +327,7 @@ body::before {
 }
 
 .search-button {
-  background: var(--text-muted);
+  background: var(--text-main);
   color: #fff;
   border: 1px solid var(--text-muted);
   padding: 0 1.25rem;
@@ -357,20 +383,22 @@ body::before {
 
 .create-panel label {
   margin: 1rem 2rem 0.5rem;
+  margin-top: 2rem;
   font-family: var(--font-sans);
   font-weight: 600;
   font-size: 0.85rem;
-  color: var(--text-muted);
+  color: var(--text-main);
 }
 
 .magnitude, .email {
   margin: 0 2rem;
-  width: calc(100% - 4rem);
+  /* width: calc(100% - 4rem); */
   padding: 0.75rem;
   border: 1px solid var(--border);
   border-radius: 4px;
   font-family: var(--font-mono);
   background: #fff;
+  margin:  0rem 2rem 0rem;
 }
 
 /* Footer / Control Surface */
@@ -412,7 +440,8 @@ body::before {
   transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 .sub-create-button:hover::after {
-  animation: shine 2s cubic-bezier(0, 0.5, 0.2, 1);
+  animation: shine 2.5s cubic-bezier(0, 0.5, 0.2, 1) infinite, delay-animation 3s linear infinite;;
+  
 }
 
 .sub-create-button:hover {
@@ -465,7 +494,7 @@ body::before {
 
 
 .save-alert:hover::after {
-  animation: shine 1.5s cubic-bezier(0, 0.5, 0.2, 1);
+  animation: shine 2.5s cubic-bezier(0, 0.5, 0.2, 1) infinite, delay-animation 3s linear infinite;
 }
 
 @keyframes shine {
@@ -473,6 +502,20 @@ body::before {
   100% { left: 200%; }
 }
 
+@keyframes delay-animation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  50.01% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 .save-alert:active {
   transform: translateY(1px);
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
