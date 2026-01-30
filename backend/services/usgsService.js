@@ -68,7 +68,9 @@ async function InsertQuakes(data){
         }
     } catch (error) {
         pool.end();
+
         console.error("Error Occured:", error);
+        // process.exit(1);
         
     }
     // console.log('='.repeat(40));
