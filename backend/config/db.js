@@ -4,8 +4,8 @@ import dotenv from 'dotenv';
 dotenv.config({path: './.env'})
 
 
-console.log(process.env.DB_HOSTS)
-console.log(process.env.PSWD)
+// console.log(process.env.DB_HOSTS)
+// console.log(process.env.PSWD)
 
 
 const pool = new pg.Pool({
