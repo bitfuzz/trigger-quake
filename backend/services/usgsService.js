@@ -70,7 +70,7 @@ async function InsertQuakes(data){
         pool.end();
 
         console.error("Error Occured:", error);
-        // process.exit(1);
+        process.exit(1); //temp don't make this permanent
         
     }
     // console.log('='.repeat(40));
