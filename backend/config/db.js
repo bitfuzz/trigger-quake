@@ -7,13 +7,13 @@ dotenv.config({path: './.env'})
 // console.log(process.env.DB_HOSTS)
 // console.log(process.env.PSWD)
 
-
 const pool = new pg.Pool({
     user: 'postgres',
     host: process.env.DB_HOSTS,
     database: 'postgres',
     password: process.env.PSWD, 
     port: 5432,
+    pool_mode: 'session',
  
   ssl:{
     rejectUnauthorized:false},
@@ -22,6 +22,22 @@ const pool = new pg.Pool({
     idleTimeoutMillis:20000, // Close idle clients after 30 seconds
     allowExitOnIdle: false // Return an error if connection takes > 2 seconds
 });
+
+
+// const pool = new pg.Pool({
+//     user: 'postgres',
+//     host: process.env.DB_HOSTS,
+//     database: 'postgres',
+//     password: process.env.PSWD, 
+//     port: 5432,
+ 
+//   ssl:{
+//     rejectUnauthorized:false},
+//     // 🛡️ ADD THESE LINES TO PREVENT TIMEOUTS
+//     max: 10, // Max number of connections
+//     idleTimeoutMillis:20000, // Close idle clients after 30 seconds
+//     allowExitOnIdle: false // Return an error if connection takes > 2 seconds
+// });
 
 
 // 🎧 THE SAFETY NET
