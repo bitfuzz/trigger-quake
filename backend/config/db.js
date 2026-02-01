@@ -8,7 +8,7 @@ dotenv.config({path: './.env'})
 // console.log(process.env.PSWD)
 
 const pool = new pg.Pool({
-    user: SESSION_DB_USER,
+    user: process.env.SESSION_DB_USER,
     host: process.env.SESSION_DB_HOST,
     database: 'postgres',
     password: process.env.PSWD, 
