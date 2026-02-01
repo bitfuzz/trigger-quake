@@ -12,6 +12,14 @@ const createCustomDivIcon = (magnitudeClass) => L.divIcon({
   popupAnchor: [0, -10]
 });
 
+
+const subMarker =  L.divIcon({
+        className: 'sub-marker',
+        html: "<div' class='marker-pin'></div><i class='material-icons'></i>",
+        iconSize: [20, 42],
+        iconAnchor: [10, 42]
+    });
+
 // Helper to determine class based on magnitude
 const getMarkerClass = (mag) => {
   const m = parseFloat(mag);
@@ -22,7 +30,7 @@ const getMarkerClass = (mag) => {
 
 export default function QuakeMap({ earthquakes, onSelect, selectedId, fly_to, magRadius }) {
 
-  const fillBlueOptions = { fillColor: 'blue' }
+  const fillBlueOptions = { fillColor: 'black' , color: 'black'}
 
   return (
     <MapContainer
@@ -46,6 +54,7 @@ export default function QuakeMap({ earthquakes, onSelect, selectedId, fly_to, ma
           <Marker
             key={'current-temp'}
             position={fly_to}
+            icon={subMarker}
           />
           <Circle 
             center={fly_to} 

@@ -5,6 +5,8 @@ import './App.css'
 import 'leaflet/dist/leaflet.css'
 import QuakeMap from './components/QuakeMap';
 
+import { ToastContainer } from 'react-toastify';
+
 
 function App() {
   const [earthquakes, setEarthquakes] = useState([]);
@@ -58,6 +60,20 @@ function App() {
 
         />
 
+
+      <ToastContainer
+          className="toasty"
+          position="top-right"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          />
 
     </div>
   )

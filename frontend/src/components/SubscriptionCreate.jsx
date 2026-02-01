@@ -1,5 +1,8 @@
 import { use, useCallback, useEffect, useState } from "react";
 
+import { cssTransition, toast, Slide, Bounce } from 'react-toastify';
+
+
 export default function SubscriptionCreate({ locationSelect, onCancel, magRadiusSelect, location, magRadius }) {
     //states for the form
     const [mag, setMag] = useState('');
@@ -10,6 +13,25 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
     const [mError, setMError] = useState('');
 
     const [isSearchEmpty, setSearchEmpty] = useState(false);
+
+const SlideRightAnimation = cssTransition({
+  enter: 'slide-right-blur-enter',
+  exit: 'slide-right-blur-exit',
+  duration: 200 // Match this to the 0.3s in your CSS
+});
+
+    const notify = () => toast('Alert Saved', {
+                    position: "bottom-right",
+                    autoClose: 2100,
+                    hideProgressBar: true,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: SlideRightAnimation,
+                    });
+
 
 
     //code to handle the query and search bar
@@ -55,14 +77,67 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
             if(response.ok){
                 const data = await response.json();
                 console.log("Success:", data);
-                alert("Subscription Saved! Check your Database.");
+
+
+                toast.success('Alert Saved', {
+                    position: "bottom-right",
+                    autoClose: 2100,
+                    hideProgressBar: true,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: SlideRightAnimation,
+                    });
+                // alert("Subscription Saved! Check your Database.");
+                //toast
+
+                
+                // toast("Subscription Saved !");
+                // toast.success('Subscription Saved !', {
+                //     position: "top-right",
+                //     autoClose: 3000,
+                //     hideProgressBar: false,
+                //     closeOnClick: false,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     progress: undefined,
+                //     theme: "light",
+                //     transition: Slide,
+                //     });
+                
+
             }else{
                 console.error("Server Error");
+                toast('Server Error', {
+                    position: "bottom-right",
+                    autoClose: 2100,
+                    hideProgressBar: true,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: SlideRightAnimation,
+                    });
             }
 
 
         } catch (error) {
             console.log("Network Error: ", error);
+            toast.error(`Network Error: ${error}`, {
+                    position: "bottom-right",
+                    autoClose: 2100,
+                    hideProgressBar: true,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: false,
+                    theme: "light",
+                    transition: SlideRightAnimation,
+                    });
+
         }
 
     };
@@ -181,6 +256,7 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
     }, [query, debounced]);
     return (
         <div className="create-panel">
+     
             <h2>Create Subscription</h2>
             <div className="search-container">
                 <div className={`search-box-container`} >
@@ -244,7 +320,7 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
                 id="radius"
                 min="5"
                 max="100"
-                step="0.1"
+                step="1"
                 value={magRadius}
                 disabled={!isSearchEmpty}
                 onChange={e => magRadiusSelect(e.target.value)} required />
@@ -293,6 +369,14 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
                     Cancel
                 </button>
 
+                {/* <button
+                    className="cancel1"
+                    onClick={notify}
+                >
+
+
+                </button> */}
+
 
                 <button
                     className="save-alert"
@@ -304,6 +388,8 @@ export default function SubscriptionCreate({ locationSelect, onCancel, magRadius
 
             </div>
 
+
+        
 
 
         </div>
