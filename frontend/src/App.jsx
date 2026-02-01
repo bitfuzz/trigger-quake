@@ -18,7 +18,7 @@ function App() {
   useEffect(()=>{
     async function fetchQuakes(){
       try {
-        const response = await fetch('http://localhost:5001/api/recent');
+        const response = await fetch('/api/recent');
         const data = await response.json();
         setEarthquakes(data);
       } catch (error) {
