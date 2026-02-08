@@ -23,9 +23,9 @@ const subMarker =  L.divIcon({
 // Helper to determine class based on magnitude
 const getMarkerClass = (mag) => {
   const m = parseFloat(mag);
-  if (m >= 4.5) return 'marker-high';
-  if (m >= 2.5) return 'marker-med';
-  return 'marker-low';
+  if (m < 3) return 'marker-low';
+  if (m > 5) return 'marker-high';
+  return 'marker-med';
 };
 
 export default function QuakeMap({ earthquakes, onSelect, selectedId, fly_to, magRadius }) {
