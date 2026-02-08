@@ -64,7 +64,7 @@ const SlideRightAnimation = cssTransition({
         }
         try {
             
-            const response = await fetch('http://localhost:5001/api/subscription', 
+            const response = await fetch('/api/subscription', 
                 {
                     method: 'POST',
                     headers: {
@@ -234,11 +234,6 @@ const SlideRightAnimation = cssTransition({
             setMError('Magnitude Required!');
         }
     }
-
-    const saveData = ()=>{
-        //email, radius, mag, location
-
-    } // get the email, magnitude, radius and location and send all of that data to the internal backend api that will save that data to a table
 
 
     const handleCancel = () => {
